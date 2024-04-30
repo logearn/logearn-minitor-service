@@ -33,7 +33,7 @@ spec:
           args: ["--spring.profiles.active=prod"]
           env:
             - name: JAVA_OPTS
-              value: '-Xms1024M -Xmx2048M'
+              value: '-Xms512M -Xmx1024M'
           envFrom:
             - configMapRef:
                 name: logearn-minitor-service-prod-config
@@ -42,8 +42,8 @@ spec:
               cpu: 100m
               memory: 500Mi
             limits:
-              cpu: 3000m
-              memory: 2048Mi
+              cpu: 5000m
+              memory: 1024Mi
 ---
 apiVersion: v1
 kind: Service

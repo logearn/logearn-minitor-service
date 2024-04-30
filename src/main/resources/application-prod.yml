@@ -8,8 +8,6 @@ spring:
   boot:
     admin:
       notify:
-        jvm:
-          enabled: true
         flybook:
           ignore-changes: ""
           webhook-url: https://open.feishu.cn/open-apis/bot/v2/hook/b791499e-ff2c-4b6c-abd5-5d1676173dad
@@ -19,7 +17,7 @@ spring:
         instance:
           metadata:
             tags:
-              environment: local
+              environment: prod
           #要获取的client的端点信息
       probed-endpoints: health,env,metrics,httptrace:trace,threaddump:dump,jolokia,info,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents
       monitor: # 监控发送请求的超时时间
