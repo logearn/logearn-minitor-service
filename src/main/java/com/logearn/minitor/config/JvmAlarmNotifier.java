@@ -46,7 +46,7 @@ public class JvmAlarmNotifier {
     /**
      * jvm 阈值
      */
-    private double threshold = 0.0010;
+    private double threshold = 0.90;
 
     /**
      * 累计告警次数
