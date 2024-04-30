@@ -1,4 +1,4 @@
-package com.logearn.minitor;
+package com.logearn.minitor.config;
 
 import de.codecentric.boot.admin.server.domain.entities.Instance;
 import de.codecentric.boot.admin.server.domain.entities.InstanceRepository;
