@@ -51,7 +51,7 @@ metadata:
   name: logearn-minitor-service-dev
 spec:
   ports:
-    - port: 8080
+    - port: 9111
   selector:
     app: logearn-minitor-service-dev
   type: NodePort=

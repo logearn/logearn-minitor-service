@@ -52,7 +52,7 @@ metadata:
   name: logearn-minitor-service-prod
 spec:
   ports:
-    - port: 8080
+    - port: 9111
   selector:
     app: logearn-minitor-service-prod
   type: NodePort
