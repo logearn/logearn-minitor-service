@@ -4,10 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.logearn.minitor.entitiy.AlarmMessage;
+import com.logearn.minitor.util.FeiShuUtils;
 import de.codecentric.boot.admin.server.domain.entities.Instance;
 import de.codecentric.boot.admin.server.domain.entities.InstanceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import reactor.core.Disposable;
@@ -52,12 +56,8 @@ public class JvmAlarmNotifier {
     /**
      * 检测频率,秒
      */
-    private long interval = 2;
+    private long interval = 10;
 
-    /**
-     * 格式化模版
-     */
-    private final DecimalFormat df = new DecimalFormat("0.00M");
 
     /**
      * 排除实例
@@ -72,9 +72,9 @@ public class JvmAlarmNotifier {
     /**
      * 提醒模版
      */
-    private final String ALARM_TPL = "服务实例【%s】,JVM 使用超阈值【%s】,累计【%s】次; " +
-            "当前最大内存【%s】,已使用【%s】;" +
-            "当前线程数【%s】, JVM 进程 cpu 使用率【%s】, 系统 cpu 使用率【%s】";
+    private final String ALARM_TPL = "%s 服务 ｜ JVM 使用超阈值: %s,累计: %s次; " +
+            "当前最大内存: %s , 已使用: %s ;" +
+            "当前线程数: %s , JVM 进程 cpu 使用率: %s , 系统 cpu 使用率: %s";
 
     /**
      * 超过阈值次数
@@ -126,10 +126,11 @@ public class JvmAlarmNotifier {
                     .degree("PO")
                     .occurrenceTime(new Date().toString()).build();
             Mono.fromRunnable(() -> {
-                Object requestNotify = requestJson.toString();
-                String body = restTemplate.postForEntity(webhookUrl, requestNotify, String.class).getBody();
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                String body = restTemplate.postForEntity(webhookUrl, new HttpEntity<>(FeiShuUtils.getWebHookMessage(requestJson), headers), String.class).getBody();
                 log.info("instance name:{}, status:{}, do notify result: {}", instance.getRegistration().getName(), instance.getStatusInfo().getStatus(), body);
-            });
+            }).block();
             //重新计算
             instanceCount.remove(instanceName);
         }
