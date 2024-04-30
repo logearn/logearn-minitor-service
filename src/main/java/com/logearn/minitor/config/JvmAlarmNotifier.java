@@ -56,7 +56,7 @@ public class JvmAlarmNotifier {
     /**
      * 检测频率,秒
      */
-    private long interval = 10;
+    private long interval = 30;
 
 
     /**
@@ -72,7 +72,7 @@ public class JvmAlarmNotifier {
     /**
      * 提醒模版
      */
-    private final String ALARM_TPL = "%s 服务 ｜ JVM 使用超阈值: %s,累计: %s次; " +
+    private final String ALARM_TPL = "%s 服务 ｜检测间隔时间: %s | JVM 使用超阈值: %s,累计: %s次; " +
             "当前最大内存: %s , 已使用: %s ;" +
             "当前线程数: %s , JVM 进程 cpu 使用率: %s , 系统 cpu 使用率: %s";
 
@@ -114,7 +114,7 @@ public class JvmAlarmNotifier {
                 && instanceCount.computeIfAbsent(instanceName, key -> 0) > alarmCountThreshold) {
             //当前活跃线程数
             BigDecimal threads = getJvmValue(instance, "jvm.threads.live");
-            String content = String.format(ALARM_TPL, instanceName, (threshold * 100) + "%", alarmCountThreshold,
+            String content = String.format(ALARM_TPL, instanceName, interval, (threshold * 100) + "%", alarmCountThreshold,
                     jvmMax.toPlainString(), jvmUsed.toPlainString(),
                     threads.toPlainString(), processCpuUsage.multiply(new BigDecimal("100")).toPlainString(), systemCpuUsage.multiply(new BigDecimal("100")).toPlainString());
             AlarmMessage requestJson = AlarmMessage.builder()

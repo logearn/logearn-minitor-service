@@ -10,7 +10,6 @@ RUN rm -f /etc/localtime \
 
 # 将当前目录下的jar包复制到docker容器的/目录下
 COPY deployments/agents/* /agents/
-COPY src/main/resources/kafka_conf /app
 COPY target/*.jar /app/app.jar
 # 指定docker容器启动时运行jar包
 EXPOSE 9111
