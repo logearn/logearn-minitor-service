@@ -1,0 +1,35 @@
+server:
+  port: 9111
+spring:
+  jmx:
+    enabled: true
+  boot:
+    admin:
+      ui:
+        title: Logearn 服务监控中心
+      client:
+        instance:
+          metadata:
+            tags:
+              environment: local
+          #要获取的client的端点信息
+      probed-endpoints: health,env,metrics,httptrace:trace,threaddump:dump,jolokia,info,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents
+      monitor: # 监控发送请求的超时时间
+        default-timeout: 30000
+  security: # 设置账号密码
+    user:
+      name: logearn_admin
+      password: logearn_admin_2024
+# 服务端点详细监控信息
+management:
+  trace:
+    http:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

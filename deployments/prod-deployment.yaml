@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logearn-minitor-service-prod-config
+  namespace: logearn-prod
+data:
+  DEPLOYMENT_ENV: prod
+  COPY_TRADE_ENABLE: 'true'
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: logearn-prod
+  name: logearn-minitor-service-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logearn-minitor-service-prod
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: logearn-minitor-service-prod
+    spec:
+      nodeSelector:
+        logearn_prod: 'true'
+      containers:
+        - name: logearn-minitor-service-prod
+          image: __IMAGE__
+          args: ["--spring.profiles.active=prod"]
+          env:
+            - name: JAVA_OPTS
+              value: '-Xms1024M -Xmx2048M'
+          envFrom:
+            - configMapRef:
+                name: logearn-minitor-service-prod-config
+          resources:
+            requests:
+              cpu: 100m
+              memory: 500Mi
+            limits:
+              cpu: 3000m
+              memory: 2048Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: logearn-prod
+  name: logearn-minitor-service-prod
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: logearn-minitor-service-prod
+  type: NodePort
