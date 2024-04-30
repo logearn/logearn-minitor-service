@@ -25,7 +25,7 @@ spec:
         app: logearn-minitor-service-dev
     spec:
       nodeSelector:
-        logearn_dev: 'true'
+        kingdata-spider: 'true'
       containers:
         - name: logearn-minitor-service-dev
           image: __IMAGE__
