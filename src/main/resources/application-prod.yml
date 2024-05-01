@@ -15,7 +15,7 @@ spring:
           webhook-url: https://open.feishu.cn/open-apis/bot/v2/hook/b791499e-ff2c-4b6c-abd5-5d1676173dad
       ui:
         title: Logearn 服务监控中心
-        public-url: https://logearn.com/sb-admin
+        public-url: https://logearn.com
       client:
         instance:
           metadata:
