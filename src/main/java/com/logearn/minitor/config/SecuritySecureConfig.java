@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
-@Configuration
+//@Configuration
 public class SecuritySecureConfig extends WebSecurityConfigurerAdapter {
 
     private final String adminContextPath;
