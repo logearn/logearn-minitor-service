@@ -24,10 +24,10 @@ spring:
       probed-endpoints: health,env,metrics,httptrace:trace,threaddump:dump,jolokia,info,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents
       monitor: # 监控发送请求的超时时间
         default-timeout: 20000
-  security: # 设置账号密码
-    user:
-      name: logearn_admin
-      password: logearn_admin_2024
+#  security: # 设置账号密码
+#    user:
+#      name: logearn_admin
+#      password: logearn_admin_2024
 # 服务端点详细监控信息
 management:
   trace:
