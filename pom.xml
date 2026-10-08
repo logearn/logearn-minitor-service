@@ -67,6 +67,18 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- OkHttp：调用 TEE 签名服务 -->
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp</artifactId>
+      <version>4.3.1</version>
+    </dependency>
+    <!-- spring-boot-configuration-processor：生成 @ConfigurationProperties 元数据 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>
